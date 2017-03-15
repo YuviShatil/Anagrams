@@ -1,55 +1,20 @@
-CONSTANT_PRIMES = {'A': 2,  #one-time cost, simple constant dictionary of letters to primes
-            'a': 2,         #this is legal because the problem explicitly states that the words are only
-            'B': 3,         #alpha characters.
-            'b': 3,
-            'C': 5,
-            'c': 5,
-            'D': 7,
-            'd': 7,
-            'E': 11,
-            'e': 11,
-            'F': 13,
-            'f': 13,
-            'G': 17,
-            'g': 17,
-            'H': 19,
-            'h': 19,
-            'I': 23,
-            'i': 23,
-            'J': 29,
-            'j': 29,
-            'K': 31,
-            'k': 31,
-            'L': 37,
-            'l': 37,
-            'M': 41,
-            'm': 41,
-            'N': 43,
-            'n': 43,
-            'O': 47,
-            'o': 47,
-            'P': 53,
-            'p': 53,
-            'Q': 59,
-            'q': 59,
-            'R': 61,
-            'r': 61,
-            'S': 67,
-            's': 67,
-            'T': 71,
-            't': 71,
-            'U': 73,
-            'u': 73,
-            'V': 79,
-            'v': 79,
-            'W': 83,
-            'w': 83,
-            'X': 89,
-            'x': 89,
-            'Y': 97,
-            'y': 97,
-            'Z': 101,
-            'z': 101};
+import string
+
+NUM_LETTERS = 26
+
+CONSTANT_PRIMES = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
+                   47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101] #hardcoding first 26 primes. Could generate, but
+                                                                    #not worth the hassle when the # of letters is
+                                                                    #constant and will always be English. If we wanted
+                                                                    #to count anagrams in other languages with other
+                                                                    #alphabets, generating might be better.
+LOWERCASE = list(string.ascii_lowercase) # ['a', 'b' ....]
+UPPERCASE = list(string.ascii_uppercase) # ['A', 'B' ....]
+CONSTANT_PRIMES_MAP = {};
+for i in range(NUM_LETTERS):
+    CONSTANT_PRIMES_MAP[LOWERCASE[i]] = CONSTANT_PRIMES[i] #map lowercase to the correct prime
+    CONSTANT_PRIMES_MAP[UPPERCASE[i]] = CONSTANT_PRIMES[i] #and map uppercase the correct prime
+
 
 def anagram_count_ints(arr):
     count = 0;
@@ -66,7 +31,7 @@ def anagram_count_ints(arr):
 
 
 def word_to_identifier(word):
-    primes = CONSTANT_PRIMES; #map from character (case insensitive) to prime number
+    primes = CONSTANT_PRIMES_MAP; #map from character (case insensitive) to prime number
     i = 1; #mapping to primes will create unique identifiers for anagrams because of how prime factorization works
     for letter in word: # m time (run once for each n -- nm time total)
         i*=primes[letter] #could overflow - very unlikely and python actually uses arbitrary precision. In C would need
@@ -84,5 +49,6 @@ def anagram_count(arr):
     return anagram_count_ints(ints);
 
 if __name__ == "__main__":
-    arr = ['Act', 'cat', 'cat', 'dog', 'dog', 'aardvark', 'pus', 'sup', 'dog', 'joseph', 'yuvi']; #could use sys library to take input from text file
+    arr = ['Act', 'cat', 'cat', 'dog', 'dog', 'aardvark', 'pus', 'sup', 'dog', 'joseph', 'yuvi',
+           'butthole', 'biggerbutthole']; #could use sys library to take input from text file
     print(anagram_count(arr)); #builds map from unique integer to value, increments and returns counter accordingly.
