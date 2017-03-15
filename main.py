@@ -49,6 +49,5 @@ def anagram_count(arr):
     return anagram_count_ints(ints);
 
 if __name__ == "__main__":
-    arr = ['Act', 'cat', 'cat', 'dog', 'dog', 'aardvark', 'pus', 'sup', 'dog', 'joseph', 'yuvi',
-           'butthole', 'biggerbutthole']; #could use sys library to take input from text file
+    arr = ['Act', 'cat', 'cat', 'dog', 'dog', 'aardvark', 'pus', 'sup', 'dog', 'joseph', 'yuvi']; #could use sys library to take input from text file
     print(anagram_count(arr)); #builds map from unique integer to value, increments and returns counter accordingly.
